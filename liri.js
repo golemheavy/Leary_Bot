@@ -14,11 +14,8 @@ function writeMessage(msgTextStr) {
 });
 }
 
+var spotify = new Spotify(keys[spotify]);
 
-
-
-
-// var spotify = new Spotify(keys[spotify]);
 //
 //
 //Make it so liri.js can take in one of the following commands:

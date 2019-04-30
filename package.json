@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/golemheavy/liri-node-app/issues"
   },
-  "homepage": "https://github.com/golemheavy/liri-node-app#readme"
+  "homepage": "https://github.com/golemheavy/liri-node-app#readme",
+  "dependencies": {
+    "dotenv": "^7.0.0"
+  }
 }

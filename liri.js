@@ -1,4 +1,5 @@
 var Spotify = require('node-spotify-api');
+var axios = require('axios');
 
 var logmsg = function(msgTextStr) {
 		const fs = require('fs');
@@ -28,7 +29,7 @@ setTimeout(function(){
 		switch(strArr[2]) {
 			case "concert-this"		: logmsg("Attempting CONCERT-THIS"); break; //Bands-In-Town
 			case "spotify-this-song": setTimeout(function(){logmsg("Attempting SPOTIFY-THIS-SONG");}, 0); setTimeout(function(){logmsg(spotifySong(strArr[3]));}, 0); break; //Spotify
-			case "movie-this"		: logmsg("Attempting MOVIE-THIS"); break; // IMDB
+			case "movie-this"		: logmsg("Attempting MOVIE-THIS"); imdbCall(strArr[3]); break; // IMDB
 			case "do-what-it-says"	: logmsg("Attempting DO-WHAT-IT-SAYS"); break; //Random input
 			default: logmsg("please include an allowable argument as your first parameter"); return 0;
 		}
@@ -54,8 +55,6 @@ function spotifySong(trackTitle) {
 			if (err) {
 				return logmsg('Error occurred: ' + err);
 			}
-			//logmsg(JSON.stringify(data, null, '\t'));
-			//logmsg("\tArtist:\n\tTrack Title:\n\tSong Preview:\n\tAlbum:");
 			logmsg("\tArtist:\t\t" + data.tracks.items[0].artists[0].name); // artist name
 			logmsg("\tTrack Title:\t" + data.tracks.items[0].name); // track name
 			logmsg("\tSong Preview:\t" + data.tracks.items[0].preview_url); // preview
@@ -68,4 +67,26 @@ function spotifySong(trackTitle) {
 	}
 	
 	return "spotifySong completed";
+}
+
+function imdbCall(str) {
+	
+	var movie = "Mr.+Nobody";
+	if (str) {
+		if (str.includes(" ")) str.split(" ").join("+");
+		movie = str;
+	}
+	axios.get("https://www.omdbapi.com/?t=" + movie + "&apikey=trilogy").then(function (response) {
+		logmsg("\tMovie Title:\t\t" + response.data.Title); // * Title of the movie.
+		logmsg("\tYear Released:\t\t" + response.data.Year); // * Year the movie came out.
+		logmsg("\tIMDB Rating:\t\t" + response.data.imdbRating); // * IMDB Rating of the movie.
+		logmsg("\tRotten Tomatoes Rating:\t" + response.data.Ratings[1].Value); // * Rotten Tomatoes Rating of the movie.
+		logmsg("\tCountries Produced in:\t" + response.data.Country); // * Country where the movie was produced.
+		logmsg("\tLanguage:\t\t" + response.data.Language); // * Language of the movie.
+		logmsg("\tPlot synopsis:\t\t" + response.data.Plot); // * Plot of the movie.
+		logmsg("\tActors:\t\t" + response.data.Actors); // * Actors in the movie.
+	})
+	.catch(function (error) {
+		logmsg(error);
+	});
 }

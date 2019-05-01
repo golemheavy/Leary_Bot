@@ -7,6 +7,10 @@ var logmsg = function(msgTextStr) {
 		if (err) throw err;
 		console.log(msgTextStr);
 		});
+		//write out html document results.html
+		fs.appendFile('results.html', "<p>" + msgTextStr + "<p>", (err) => {  
+			if (err) throw err;
+		});
 	}
 
 setTimeout(function(){

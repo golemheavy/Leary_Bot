@@ -36,33 +36,36 @@ setTimeout(function(){
 }, 0);
 
 function spotifySong(trackTitle) {
-	if (trackTitle) logmsg("\tspotifying track title: " + trackTitle);
-	else {
+
+	var spotify = new Spotify({
+		id: process.env.SPOTIFY_ID,
+		secret: process.env.SPOTIFY_SECRET
+	});
+
+	if (trackTitle) {
+		
+		logmsg("\tspotifying track title: " + trackTitle);
+		
+		spotify.search({
+			type: 'track',
+			query: trackTitle,
+			limit: 1
+		}, function(err, data) {
+			if (err) {
+				return logmsg('Error occurred: ' + err);
+			}
+			//logmsg(JSON.stringify(data, null, '\t'));
+			//logmsg("\tArtist:\n\tTrack Title:\n\tSong Preview:\n\tAlbum:");
+			logmsg("\tArtist:\t\t" + data.tracks.items[0].artists[0].name); // artist name
+			logmsg("\tTrack Title:\t" + data.tracks.items[0].name); // track name
+			logmsg("\tSong Preview:\t" + data.tracks.items[0].preview_url); // preview
+			logmsg("\tfrom Album:\t" + data.tracks.items[0].album.name); // album name
+		});
+	}
+	else { // fix this branch
 		trackTitle = 'The Sign';
 		logmsg("\tno track title provided. Default mode: 'The Sign' by Ace of Base");
 	}
-	
-var spotify = new Spotify({
-  id: process.env.SPOTIFY_ID,
-  secret: process.env.SPOTIFY_SECRET
-});
-	
-	spotify.search({
-		type: 'track',
-		query: trackTitle,
-		limit: 1
-	}, function(err, data) {
-		if (err) {
-			return logmsg('Error occurred: ' + err);
-		}
-		//logmsg(JSON.stringify(data, null, '\t'));
-		//logmsg("\tArtist:\n\tTrack Title:\n\tSong Preview:\n\tAlbum:");
-		logmsg("\tArtist:\t\t" + data.tracks.items[0].artists[0].name); // artist name
-		logmsg("\tTrack Title:\t" + data.tracks.items[0].name); // track name
-		logmsg("\tSong Preview:\t" + data.tracks.items[0].preview_url); // preview
-		logmsg("\tfrom Album:\t" + data.tracks.items[0].album.name); // album name
-		
-	});
 	
 	return "spotifySong completed";
 }

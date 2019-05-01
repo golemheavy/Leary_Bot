@@ -31,10 +31,42 @@ setTimeout(function(){
 			case "spotify-this-song": setTimeout(function(){logmsg("Attempting SPOTIFY-THIS-SONG");}, 0); setTimeout(function(){logmsg(spotifySong(strArr[3]));}, 0); break; //Spotify
 			case "movie-this"		: logmsg("Attempting MOVIE-THIS"); imdbCall(strArr[3]); break; // IMDB
 			case "do-what-it-says"	: logmsg("Attempting DO-WHAT-IT-SAYS"); break; //Random input
-			default: logmsg("please include an allowable argument as your first parameter"); return 0;
+			default: logmsg("Because you didn't include any command line arguments, the file random.txt will be read for parameter input."); randomInput(); return;//return 0;
 		}
 	}(process.argv));
 }, 0);
+
+function randomInput() {
+	logmsg("Random Input");
+	const fs = require('fs');
+	fs.readFile('random.txt', function(err, data) {
+		// logmsg(data);
+		var dataString = data.toString();
+		if (dataString) {
+			var dataArr = dataString.split(",");
+			if (dataArr[1].includes('"')) var param = dataArr[1].split('"')[1];
+			else param = dataArr[1];
+			//logmsg(dataArr);
+			switch(dataArr[0]) {
+				case "concert-this"		: logmsg("Attempting CONCERT-THIS"); bandsInTown(param); break; //Bands-In-Town
+				case "spotify-this-song": setTimeout(function(){logmsg("Attempting SPOTIFY-THIS-SONG");}, 0); setTimeout(function(){logmsg(spotifySong(param));}, 0); break; //Spotify
+				case "movie-this"		: logmsg("Attempting MOVIE-THIS"); imdbCall(param); break; // IMDB
+				default: logmsg("The input in the provided file does not conform to one of the allowable commands: concert-this, spotify-this-song, or movie-this."); randomInput; return 0;
+			}
+			
+		}
+		/*
+		switch(strArr[2]) {
+			case "concert-this"		: logmsg("Attempting CONCERT-THIS"); bandsInTown(strArr[3]); break; //Bands-In-Town
+			case "spotify-this-song": setTimeout(function(){logmsg("Attempting SPOTIFY-THIS-SONG");}, 0); setTimeout(function(){logmsg(spotifySong(strArr[3]));}, 0); break; //Spotify
+			case "movie-this"		: logmsg("Attempting MOVIE-THIS"); imdbCall(strArr[3]); break; // IMDB
+			case "do-what-it-says"	: logmsg("Attempting DO-WHAT-IT-SAYS"); break; //Random input
+			default: logmsg("Because you didn't include any command line arguments, the file random.txt will be read for parameter input."); randomInput; return;//return 0;
+		}
+		*/
+		
+	});
+}
 
 function bandsInTown(str) {
 	var bandName = "WeirdAl";

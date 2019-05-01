@@ -1,3 +1,5 @@
+var Spotify = require('node-spotify-api');
+
 var logmsg = function(msgTextStr) {
 		const fs = require('fs');
 		fs.appendFile('log.txt', "\n\t" + msgTextStr, (err) => {  
@@ -36,8 +38,22 @@ setTimeout(function(){
 function spotifySong(trackTitle) {
 	if (trackTitle) logmsg("\tspotifying track title: " + trackTitle);
 	else logmsg("\tno track title provided.");
-	return "spotifySong completed";
 	
+var spotify = new Spotify({
+  id: process.env.SPOTIFY_ID,
+  secret: process.env.SPOTIFY_SECRET
+});
+	
+	spotify.search({
+		type: 'track',
+		query: trackTitle,
+		limit: 1
+	}, function(err, data) {
+		if (err) {
+			return logmsg('Error occurred: ' + err);
+		}
+		logmsg(JSON.stringify(data, null, '\t'));
+	});
+	
+	return "spotifySong completed";
 }
-
-//var spotify = new Spotify(keys[spotify]);

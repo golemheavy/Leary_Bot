@@ -27,7 +27,7 @@ setTimeout(function(){
 setTimeout(function(){
 	(function(strArr) {
 		switch(strArr[2]) {
-			case "concert-this"		: logmsg("Attempting CONCERT-THIS"); break; //Bands-In-Town
+			case "concert-this"		: logmsg("Attempting CONCERT-THIS"); bandsInTown(strArr[3]); break; //Bands-In-Town
 			case "spotify-this-song": setTimeout(function(){logmsg("Attempting SPOTIFY-THIS-SONG");}, 0); setTimeout(function(){logmsg(spotifySong(strArr[3]));}, 0); break; //Spotify
 			case "movie-this"		: logmsg("Attempting MOVIE-THIS"); imdbCall(strArr[3]); break; // IMDB
 			case "do-what-it-says"	: logmsg("Attempting DO-WHAT-IT-SAYS"); break; //Random input
@@ -35,6 +35,31 @@ setTimeout(function(){
 		}
 	}(process.argv));
 }, 0);
+
+function bandsInTown(str) {
+	var bandName = "WeirdAl";
+	if (str) {
+		if (str.includes(" ")) str.split(" ").join("+");
+		bandName = str;
+	}
+	axios.get("https://rest.bandsintown.com/artists/" + bandName + "/events?app_id=codingbootcamp").then(function (response) {
+		//logmsg(JSON.stringify(response));
+		var x;
+		var dataObj = response.data;
+		for (x in dataObj) {
+			
+				logmsg("\n\tEvent " + (parseInt(x) + parseInt(1)) + ":");
+				logmsg("\tVenue:\t\t" + dataObj[x].venue.name);
+				logmsg("\tVenue location:\t" + dataObj[x].venue.city + ", " + response.data[x].venue.region + ", " + dataObj[x].venue.country);
+				logmsg("\tDatetime:\t" + dataObj[x].datetime);
+			
+		}
+		
+	})
+	.catch(function (error) {
+		logmsg(error);
+	});
+}
 
 function spotifySong(trackTitle) {
 

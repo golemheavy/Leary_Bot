@@ -8,10 +8,14 @@ var logmsg = function(msgTextStr) {
 		console.log(msgTextStr);
 		});
 		//write out html document results.html
-		fs.appendFile('results.html', "<p>" + msgTextStr + "<p>", (err) => {  
+		msgTextStr = msgTextStr.split("\t").join("&emsp;&emsp;").split("\n").join("<br />");
+		fs.appendFile('results.html', `<p style="margin:0;">&emsp;` + msgTextStr + `</p>`, (err) => {  
 			if (err) throw err;
 		});
 	}
+
+setTimeout(function(){logmsg("------------executing liri-bot.js----------------");
+}, 0);
 
 setTimeout(function(){
 	if (require("dotenv").config()) logmsg("loaded dotenv successfully");

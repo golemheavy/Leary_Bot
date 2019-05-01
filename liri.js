@@ -25,7 +25,7 @@ setTimeout(function(){
 	(function(strArr) {
 		switch(strArr[2]) {
 			case "concert-this"		: logmsg("Attempting CONCERT-THIS"); break; //Bands-In-Town
-			case "spotify-this-song": logmsg("Attempting SPOTIFY-THIS-SONG"); logmsg(spotifySong(strArr[3])); break; //Spotify
+			case "spotify-this-song": setTimeout(function(){logmsg("Attempting SPOTIFY-THIS-SONG");}, 0); setTimeout(function(){logmsg(spotifySong(strArr[3]));}, 0); break; //Spotify
 			case "movie-this"		: logmsg("Attempting MOVIE-THIS"); break; // IMDB
 			case "do-what-it-says"	: logmsg("Attempting DO-WHAT-IT-SAYS"); break; //Random input
 			default: logmsg("please include an allowable argument as your first parameter"); return 0;
@@ -37,6 +37,7 @@ function spotifySong(trackTitle) {
 	if (trackTitle) logmsg("\tspotifying track title: " + trackTitle);
 	else logmsg("\tno track title provided.");
 	return "spotifySong completed";
+	
 }
 
 //var spotify = new Spotify(keys[spotify]);

@@ -14,35 +14,35 @@ var logmsg = function(msgTextStr) {
 		});
 	}
 
-setTimeout(function(){logmsg("------------executing liri-bot.js----------------");
-}, 0);
+function(){logmsg("------------executing liri-bot.js----------------");
 
-setTimeout(function(){
+
+function(){
 	if (require("dotenv").config()) logmsg("loaded dotenv successfully");
 	else logmsg("failed to load dotenv");
-}, 0);
 
-setTimeout(function(){
+
+function(){
 	var keys = require("./keys.js");
 	if (keys) logmsg("loaded keys.js");
 	else logmsg("failed to load keys.js");
-}, 0);
 
-setTimeout(function(){
+
+function(){
 	logmsg("reading command line arguments.");
-}, 0);
 
-setTimeout(function(){
+
+function(){
 	(function(strArr) {
 		switch(strArr[2]) {
 			case "concert-this"		: logmsg("Attempting CONCERT-THIS"); bandsInTown(strArr[3]); break; //Bands-In-Town
-			case "spotify-this-song": setTimeout(function(){logmsg("Attempting SPOTIFY-THIS-SONG");}, 0); setTimeout(function(){logmsg(spotifySong(strArr[3]));}, 0); break; //Spotify
+			case "spotify-this-song": function(){logmsg("Attempting SPOTIFY-THIS-SONG"); function(){logmsg(spotifySong(strArr[3])); break; //Spotify
 			case "movie-this"		: logmsg("Attempting MOVIE-THIS"); imdbCall(strArr[3]); break; // IMDB
 			case "do-what-it-says"	: logmsg("Attempting DO-WHAT-IT-SAYS"); break; //Random input
 			default: logmsg("Because you didn't include any command line arguments, the file random.txt will be read for parameter input."); randomInput(); return;//return 0;
 		}
 	}(process.argv));
-}, 0);
+
 
 function randomInput() {
 	logmsg("Random Input");
@@ -57,7 +57,7 @@ function randomInput() {
 			//logmsg(dataArr);
 			switch(dataArr[0]) {
 				case "concert-this"		: logmsg("Attempting CONCERT-THIS"); bandsInTown(param); break; //Bands-In-Town
-				case "spotify-this-song": setTimeout(function(){logmsg("Attempting SPOTIFY-THIS-SONG");}, 0); setTimeout(function(){logmsg(spotifySong(param));}, 0); break; //Spotify
+				case "spotify-this-song": function(){logmsg("Attempting SPOTIFY-THIS-SONG"); function(){logmsg(spotifySong(param)); break; //Spotify
 				case "movie-this"		: logmsg("Attempting MOVIE-THIS"); imdbCall(param); break; // IMDB
 				default: logmsg("The input in the provided file does not conform to one of the allowable commands: concert-this, spotify-this-song, or movie-this."); randomInput; return 0;
 			}
@@ -66,7 +66,7 @@ function randomInput() {
 		/*
 		switch(strArr[2]) {
 			case "concert-this"		: logmsg("Attempting CONCERT-THIS"); bandsInTown(strArr[3]); break; //Bands-In-Town
-			case "spotify-this-song": setTimeout(function(){logmsg("Attempting SPOTIFY-THIS-SONG");}, 0); setTimeout(function(){logmsg(spotifySong(strArr[3]));}, 0); break; //Spotify
+			case "spotify-this-song": function(){logmsg("Attempting SPOTIFY-THIS-SONG"); function(){logmsg(spotifySong(strArr[3])); break; //Spotify
 			case "movie-this"		: logmsg("Attempting MOVIE-THIS"); imdbCall(strArr[3]); break; // IMDB
 			case "do-what-it-says"	: logmsg("Attempting DO-WHAT-IT-SAYS"); break; //Random input
 			default: logmsg("Because you didn't include any command line arguments, the file random.txt will be read for parameter input."); randomInput; return;//return 0;

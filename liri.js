@@ -78,6 +78,7 @@ function bandsInTown(str) {
 		if (str.includes(" ")) str.split(" ").join("+");
 		bandName = str;
 	}
+	logmsg("Looking for concert dates for band: " + bandName);
 	axios.get("https://rest.bandsintown.com/artists/" + bandName + "/events?app_id=codingbootcamp").then(function (response) {
 		var x;
 		var dataObj = response.data;
@@ -135,6 +136,7 @@ function imdbCall(str) {
 		if (str.includes(" ")) str.split(" ").join("+");
 		movie = str;
 	}
+	logmsg ("Getting IMDB data for movie: " + movie);
 	axios.get("https://www.omdbapi.com/?t=" + movie + "&apikey=trilogy").then(function (response) {
 		logmsg("\tMovie Title:\t\t" + response.data.Title); // * Title of the movie.
 		logmsg("\tYear Released:\t\t" + response.data.Year); // * Year the movie came out.

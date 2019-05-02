@@ -29,7 +29,7 @@ logmsg("------------executing liri-bot.js----------------");
 (function(strArr) {
 	switch(strArr[2]) {
 		case "concert-this"		: logmsg("Attempting CONCERT-THIS"); bandsInTown(strArr[3]); break; //Bands-In-Town
-		case "spotify-this-song": logmsg("Attempting SPOTIFY-THIS-SONG"); logmsg(spotifySong(strArr[3])); break; //Spotify
+		case "spotify-this-song": logmsg("Attempting SPOTIFY-THIS-SONG"); spotifySong(strArr[3]); break; //Spotify
 		case "movie-this"		: logmsg("Attempting MOVIE-THIS"); imdbCall(strArr[3]); break; // IMDB
 		case "do-what-it-says"	: logmsg("Attempting DO-WHAT-IT-SAYS"); break; //Random input
 		default: logmsg("Because you didn't include any command line arguments, the file random.txt will be read for parameter input."); randomInput(); return;//return 0;
@@ -50,7 +50,7 @@ function randomInput() {
 			//logmsg(dataArr);
 			switch(dataArr[0]) {
 				case "concert-this"		: logmsg("Attempting CONCERT-THIS"); bandsInTown(param); break; //Bands-In-Town
-				case "spotify-this-song": logmsg("Attempting SPOTIFY-THIS-SONG"); logmsg(spotifySong(param)); break; //Spotify
+				case "spotify-this-song": logmsg("Attempting SPOTIFY-THIS-SONG"); spotifySong(param); break; //Spotify
 				case "movie-this"		: logmsg("Attempting MOVIE-THIS"); imdbCall(param); break; // IMDB
 				default: logmsg("The input in the provided file does not conform to one of the allowable commands: concert-this, spotify-this-song, or movie-this."); randomInput; return 0;
 			}
@@ -109,12 +109,12 @@ function spotifySong(trackTitle) {
 			logmsg("\tfrom Album:\t" + data.tracks.items[0].album.name); // album name
 		});
 	}
-	else { // fix this branch
+	else { // fix this branch -- can't get the desired song to return by searching on the title alone
 		trackTitle = 'The Sign';
 		logmsg("\tno track title provided. Default mode: 'The Sign' by Ace of Base");
 	}
 	
-	return "spotifySong completed";
+	// return "spotifySong completed"; // I removed the logmsg of this function's output due to synchronization issues
 }
 
 function imdbCall(str) {

@@ -42,10 +42,17 @@ logmsg("------------executing liri-bot.js----------------");
 logmsg("reading command line arguments.");
 
 (function(strArr) {
+	
+	var multiWordParam = "";
+	for (let i = 3; i < strArr.length; i++) {
+		if (multiWordParam) multiWordParam += "+";
+		multiWordParam += strArr[i];
+	};
+	
 	switch(strArr[2]) {
-		case "concert-this"		: logmsg("Attempting CONCERT-THIS"); bandsInTown(strArr[3]); break; //Bands-In-Town
-		case "spotify-this-song": logmsg("Attempting SPOTIFY-THIS-SONG"); spotifySong(strArr[3]); break; //Spotify
-		case "movie-this"		: logmsg("Attempting MOVIE-THIS"); imdbCall(strArr[3]); break; // IMDB
+		case "concert-this"		: logmsg("Attempting CONCERT-THIS"); bandsInTown(multiWordParam); break; //Bands-In-Town
+		case "spotify-this-song": logmsg("Attempting SPOTIFY-THIS-SONG"); spotifySong(multiWordParam); break; //Spotify
+		case "movie-this"		: logmsg("Attempting MOVIE-THIS"); imdbCall(multiWordParam); break; // IMDB
 		case "do-what-it-says"	: logmsg("Attempting DO-WHAT-IT-SAYS"); break; //Random input
 		default: logmsg("Because you didn't include any command line arguments, the file random.txt will be read for parameter input."); randomInput(); return;//return 0;
 	}
@@ -73,12 +80,12 @@ function randomInput() {
 }
 
 function bandsInTown(str) {
-	var bandName = "WeirdAl"; // fix acceptable input, according to their API functionality and documentation. ALSO, MENTION WHAT YOU'RE SEARCHING ON
+	var bandName = "Weird+Al"; // fix acceptable input, according to their API functionality and documentation. ALSO, MENTION WHAT YOU'RE SEARCHING ON
 	if (str) {
 		if (str.includes(" ")) str.split(" ").join("+");
 		bandName = str;
 	}
-	logmsg("Looking for concert dates for band: " + bandName);
+	logmsg("Looking for concert dates for band: " + bandName.split("+").join(" "));
 	axios.get("https://rest.bandsintown.com/artists/" + bandName + "/events?app_id=codingbootcamp").then(function (response) {
 		var x;
 		var dataObj = response.data;
@@ -106,7 +113,7 @@ function spotifySong(trackTitle) {
 
 	if (trackTitle) {
 		
-		logmsg("\tspotifying track title: " + trackTitle);
+		logmsg("\tspotifying track title: " + trackTitle.split("+").join(" "));
 		
 		spotify.search({
 			type: 'track',
@@ -126,7 +133,6 @@ function spotifySong(trackTitle) {
 		trackTitle = 'The Sign';
 		logmsg("\tno track title provided. Default mode: 'The Sign' by Ace of Base");
 	}
-	// return "spotifySong completed"; // I removed the logmsg of this function's output due to synchronization issues
 }
 
 function imdbCall(str) {
@@ -136,7 +142,7 @@ function imdbCall(str) {
 		if (str.includes(" ")) str.split(" ").join("+");
 		movie = str;
 	}
-	logmsg ("Getting IMDB data for movie: " + movie);
+	logmsg ("Getting IMDB data for movie: " + movie.split("+").join(" "));
 	axios.get("https://www.omdbapi.com/?t=" + movie + "&apikey=trilogy").then(function (response) {
 		logmsg("\tMovie Title:\t\t" + response.data.Title); // * Title of the movie.
 		logmsg("\tYear Released:\t\t" + response.data.Year); // * Year the movie came out.

@@ -130,8 +130,23 @@ function spotifySong(trackTitle) {
 		});
 	}
 	else { // fix this branch -- can't get the desired song to return by searching on the title alone
-		trackTitle = 'The Sign';
+		
 		logmsg("\tno track title provided. Default mode: 'The Sign' by Ace of Base");
+ 
+		var spotify = new Spotify({
+			id: process.env.SPOTIFY_ID,
+			secret: process.env.SPOTIFY_SECRET
+		});
+		spotify.request('https://api.spotify.com/v1/tracks/0hrBpAOgrt8RXigk83LLNE').then(function(data) {
+			//console.log(data);
+			logmsg("\tArtist:\t\t" + data.artists[0].name); // artist name
+			logmsg("\tTrack Title:\t" + data.name); // track name
+			logmsg("\tSong Preview:\t" + data.preview_url); // preview
+			logmsg("\tfrom Album:\t" + data.album.name); // album name
+		})
+		.catch(function(err) {
+			console.error('Error occurred: ' + err); 
+		});
 	}
 }
 

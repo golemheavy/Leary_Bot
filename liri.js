@@ -2,46 +2,39 @@ var Spotify = require('node-spotify-api');
 var axios = require('axios');
 
 var logmsg = function(msgTextStr) {
-		const fs = require('fs');
-		fs.appendFile('log.txt', "\n\t" + msgTextStr, (err) => {  
+	const fs = require('fs');
+	fs.appendFile('log.txt', "\n\t" + msgTextStr, (err) => {  
 		if (err) throw err;
 		console.log(msgTextStr);
-		});
-		//write out html document results.html
-		msgTextStr = msgTextStr.split("\t").join("&emsp;&emsp;").split("\n").join("<br />");
-		fs.appendFile('results.html', `<p style="margin:0;">&emsp;` + msgTextStr + `</p>`, (err) => {  
-			if (err) throw err;
-		});
-	}
+	});
+	//write out html document results.html
+	msgTextStr.split("\t").join("&emsp;&emsp;").split("\n").join("<br />");
+	fs.appendFile('results.html', `<p style="margin:0;">&emsp;` + msgTextStr + `</p>`, (err) => {  
+		if (err) throw err;
+	});
+}
 
-function(){logmsg("------------executing liri-bot.js----------------");
+logmsg("------------executing liri-bot.js----------------");
 
-
-function(){
 	if (require("dotenv").config()) logmsg("loaded dotenv successfully");
 	else logmsg("failed to load dotenv");
 
-
-function(){
 	var keys = require("./keys.js");
 	if (keys) logmsg("loaded keys.js");
 	else logmsg("failed to load keys.js");
 
-
-function(){
 	logmsg("reading command line arguments.");
 
 
-function(){
-	(function(strArr) {
-		switch(strArr[2]) {
-			case "concert-this"		: logmsg("Attempting CONCERT-THIS"); bandsInTown(strArr[3]); break; //Bands-In-Town
-			case "spotify-this-song": function(){logmsg("Attempting SPOTIFY-THIS-SONG"); function(){logmsg(spotifySong(strArr[3])); break; //Spotify
-			case "movie-this"		: logmsg("Attempting MOVIE-THIS"); imdbCall(strArr[3]); break; // IMDB
-			case "do-what-it-says"	: logmsg("Attempting DO-WHAT-IT-SAYS"); break; //Random input
-			default: logmsg("Because you didn't include any command line arguments, the file random.txt will be read for parameter input."); randomInput(); return;//return 0;
-		}
-	}(process.argv));
+(function(strArr) {
+	switch(strArr[2]) {
+		case "concert-this"		: logmsg("Attempting CONCERT-THIS"); bandsInTown(strArr[3]); break; //Bands-In-Town
+		case "spotify-this-song": logmsg("Attempting SPOTIFY-THIS-SONG"); logmsg(spotifySong(strArr[3])); break; //Spotify
+		case "movie-this"		: logmsg("Attempting MOVIE-THIS"); imdbCall(strArr[3]); break; // IMDB
+		case "do-what-it-says"	: logmsg("Attempting DO-WHAT-IT-SAYS"); break; //Random input
+		default: logmsg("Because you didn't include any command line arguments, the file random.txt will be read for parameter input."); randomInput(); return;//return 0;
+	}
+}(process.argv));
 
 
 function randomInput() {
@@ -57,22 +50,12 @@ function randomInput() {
 			//logmsg(dataArr);
 			switch(dataArr[0]) {
 				case "concert-this"		: logmsg("Attempting CONCERT-THIS"); bandsInTown(param); break; //Bands-In-Town
-				case "spotify-this-song": function(){logmsg("Attempting SPOTIFY-THIS-SONG"); function(){logmsg(spotifySong(param)); break; //Spotify
+				case "spotify-this-song": logmsg("Attempting SPOTIFY-THIS-SONG"); logmsg(spotifySong(param)); break; //Spotify
 				case "movie-this"		: logmsg("Attempting MOVIE-THIS"); imdbCall(param); break; // IMDB
 				default: logmsg("The input in the provided file does not conform to one of the allowable commands: concert-this, spotify-this-song, or movie-this."); randomInput; return 0;
 			}
 			
 		}
-		/*
-		switch(strArr[2]) {
-			case "concert-this"		: logmsg("Attempting CONCERT-THIS"); bandsInTown(strArr[3]); break; //Bands-In-Town
-			case "spotify-this-song": function(){logmsg("Attempting SPOTIFY-THIS-SONG"); function(){logmsg(spotifySong(strArr[3])); break; //Spotify
-			case "movie-this"		: logmsg("Attempting MOVIE-THIS"); imdbCall(strArr[3]); break; // IMDB
-			case "do-what-it-says"	: logmsg("Attempting DO-WHAT-IT-SAYS"); break; //Random input
-			default: logmsg("Because you didn't include any command line arguments, the file random.txt will be read for parameter input."); randomInput; return;//return 0;
-		}
-		*/
-		
 	});
 }
 

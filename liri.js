@@ -114,7 +114,6 @@ function spotifySong(trackTitle) {
 		trackTitle = 'The Sign';
 		logmsg("\tno track title provided. Default mode: 'The Sign' by Ace of Base");
 	}
-	
 	// return "spotifySong completed"; // I removed the logmsg of this function's output due to synchronization issues
 }
 

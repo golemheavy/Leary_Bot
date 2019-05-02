@@ -11,20 +11,23 @@ function logmsg (msgTextStr) {
 	});
 }
 
+logmsg("----------Loading Data and Packages--------------");
+
 var Spotify = require('node-spotify-api');
+if (Spotify) logmsg("Spotify loaded.");
 var axios = require('axios');
+if (axios) logmsg("Axios loaded.");
+
+if (require("dotenv").config()) logmsg("loaded dotenv successfully");
+else logmsg("failed to load dotenv");
+
+var keys = require("./keys.js");
+if (keys) logmsg("loaded keys.js");
+else logmsg("failed to load keys.js");
 
 logmsg("------------executing liri-bot.js----------------");
 
-	if (require("dotenv").config()) logmsg("loaded dotenv successfully");
-	else logmsg("failed to load dotenv");
-
-	var keys = require("./keys.js");
-	if (keys) logmsg("loaded keys.js");
-	else logmsg("failed to load keys.js");
-
-	logmsg("reading command line arguments.");
-
+logmsg("reading command line arguments.");
 
 (function(strArr) {
 	switch(strArr[2]) {
@@ -38,16 +41,14 @@ logmsg("------------executing liri-bot.js----------------");
 
 
 function randomInput() {
-	logmsg("Random Input");
+	logmsg("Executing file(random.txt) input");
 	const fs = require('fs');
 	fs.readFile('random.txt', function(err, data) {
-		// logmsg(data);
 		var dataString = data.toString();
 		if (dataString) {
 			var dataArr = dataString.split(",");
 			if (dataArr[1].includes('"')) var param = dataArr[1].split('"')[1];
 			else param = dataArr[1];
-			//logmsg(dataArr);
 			switch(dataArr[0]) {
 				case "concert-this"		: logmsg("Attempting CONCERT-THIS"); bandsInTown(param); break; //Bands-In-Town
 				case "spotify-this-song": logmsg("Attempting SPOTIFY-THIS-SONG"); spotifySong(param); break; //Spotify

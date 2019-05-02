@@ -1,14 +1,26 @@
 function logmsg (msgTextStr) {
 	const fs = require('fs');
-	fs.appendFileSync('log.txt', "\n\t" + msgTextStr, (err) => {  
-		if (err) throw err;
-	});
+	try {
+		fs.appendFileSync('log.txt', "\n\t" + msgTextStr, (err) => {
+			if (err) throw err;
+		});
+	}
+	catch (err) {
+		console.log("Error: ");
+		console.log(err);
+	}
 	console.log(msgTextStr);
-	//write out html document results.html
-	msgTextStr.split("\t").join("&emsp;&emsp;").split("\n").join("<br />");
-	fs.appendFileSync('results.html', `<p style="margin:0;">&emsp;` + msgTextStr + `</p>`, (err) => {  
-		if (err) throw err;
-	});
+	try {
+		//write out html document results.html
+		msgTextStr.split("\t").join("&emsp;&emsp;").split("\n").join("<br />");
+		fs.appendFileSync('results.html', `<p style="margin:0;">&emsp;` + msgTextStr + `</p>`, (err) => {  
+			if (err) throw err;
+		});
+	}
+	catch (err) {
+		console.log("Error: ");
+		console.log(err);
+	}
 }
 
 logmsg("----------Loading Data and Packages--------------");
@@ -61,13 +73,12 @@ function randomInput() {
 }
 
 function bandsInTown(str) {
-	var bandName = "WeirdAl";
+	var bandName = "WeirdAl"; // fix acceptable input, according to their API functionality and documentation. ALSO, MENTION WHAT YOU'RE SEARCHING ON
 	if (str) {
 		if (str.includes(" ")) str.split(" ").join("+");
 		bandName = str;
 	}
 	axios.get("https://rest.bandsintown.com/artists/" + bandName + "/events?app_id=codingbootcamp").then(function (response) {
-		//logmsg(JSON.stringify(response));
 		var x;
 		var dataObj = response.data;
 		for (x in dataObj) {

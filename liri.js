@@ -80,12 +80,12 @@ function randomInput() {
 }
 
 function bandsInTown(str) {
-	var bandName = "WeirdAl"; // fix acceptable input, according to their API functionality and documentation. ALSO, MENTION WHAT YOU'RE SEARCHING ON
+	var bandName = "Weird+Al"; // fix acceptable input, according to their API functionality and documentation. ALSO, MENTION WHAT YOU'RE SEARCHING ON
 	if (str) {
 		if (str.includes(" ")) str.split(" ").join("+");
 		bandName = str;
 	}
-	logmsg("Looking for concert dates for band: " + bandName);
+	logmsg("Looking for concert dates for band: " + bandName.split("+").join(" "));
 	axios.get("https://rest.bandsintown.com/artists/" + bandName + "/events?app_id=codingbootcamp").then(function (response) {
 		var x;
 		var dataObj = response.data;
@@ -113,7 +113,7 @@ function spotifySong(trackTitle) {
 
 	if (trackTitle) {
 		
-		logmsg("\tspotifying track title: " + trackTitle);
+		logmsg("\tspotifying track title: " + trackTitle.split("+").join(" "));
 		
 		spotify.search({
 			type: 'track',
@@ -142,7 +142,7 @@ function imdbCall(str) {
 		if (str.includes(" ")) str.split(" ").join("+");
 		movie = str;
 	}
-	logmsg ("Getting IMDB data for movie: " + movie);
+	logmsg ("Getting IMDB data for movie: " + movie.split("+").join(" "));
 	axios.get("https://www.omdbapi.com/?t=" + movie + "&apikey=trilogy").then(function (response) {
 		logmsg("\tMovie Title:\t\t" + response.data.Title); // * Title of the movie.
 		logmsg("\tYear Released:\t\t" + response.data.Year); // * Year the movie came out.

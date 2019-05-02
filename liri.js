@@ -1,18 +1,18 @@
-var Spotify = require('node-spotify-api');
-var axios = require('axios');
-
-var logmsg = function(msgTextStr) {
+function logmsg (msgTextStr) {
 	const fs = require('fs');
-	fs.appendFile('log.txt', "\n\t" + msgTextStr, (err) => {  
+	fs.appendFileSync('log.txt', "\n\t" + msgTextStr, (err) => {  
 		if (err) throw err;
-		console.log(msgTextStr);
 	});
+	console.log(msgTextStr);
 	//write out html document results.html
 	msgTextStr.split("\t").join("&emsp;&emsp;").split("\n").join("<br />");
-	fs.appendFile('results.html', `<p style="margin:0;">&emsp;` + msgTextStr + `</p>`, (err) => {  
+	fs.appendFileSync('results.html', `<p style="margin:0;">&emsp;` + msgTextStr + `</p>`, (err) => {  
 		if (err) throw err;
 	});
 }
+
+var Spotify = require('node-spotify-api');
+var axios = require('axios');
 
 logmsg("------------executing liri-bot.js----------------");
 

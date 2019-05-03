@@ -13,8 +13,8 @@ function logmsg (msgTextStr) {
 	console.log(msgTextStr);
 	try {
 		//write out html document results.html
-		msgTextStr.split("\t").join("&emsp;&emsp;").split("\n").join("<br />");
-		fs.appendFileSync('results.html', `<p style="margin:0;">&emsp;` + msgTextStr + `</p>`, (err) => {  
+		msgTextStr.split("\t").join("&#9;&#9;").split("\n").join("<br />");
+		fs.appendFileSync('results.html', `<p style="margin:0;">&#9;` + msgTextStr + `</p>`, (err) => {  
 			if (err) throw err;
 		});
 	}

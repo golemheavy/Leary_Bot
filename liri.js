@@ -64,7 +64,6 @@ logmsg("reading command line arguments.");
 	}
 }(process.argv));
 
-
 function randomInput() {
 	logmsg("Executing file(random.txt) input");
 	const fs = require('fs');
@@ -102,7 +101,6 @@ function bandsInTown(str) {
 				logmsg("\tVenue location:\t" + dataObj[x].venue.city + ", " + response.data[x].venue.region + ", " + dataObj[x].venue.country);
 				let dateVal = moment(dataObj[x].datetime).format().toString().split("-").slice(0,3);
 				logmsg("\tDate:\t\t" + dateVal[1] + "/" + dateVal[2].slice(0,2) + "/" + dateVal[0]);
-				//logmsg(moment(dataObj[x].datetime, 'MM/DD/YYYY', true).format());
 		}
 		
 	})
@@ -175,7 +173,6 @@ function imdbCall(str) {
 		}
 		catch (res)
 		{
-			//console.log(err);
 			if (res.toString().startsWith("TypeError")) responseObj.rottenTRating = "no record";
 			else responseObj.rottenTRating = res;
 		}
@@ -184,14 +181,14 @@ function imdbCall(str) {
 		responseObj.synopsis = response.data.Plot;
 		responseObj.cast = response.data.Actors;
 		
-		logmsg("\tMovie Title:\t\t" + responseObj.title); // * Title of the movie.
-		logmsg("\tYear Released:\t\t" + responseObj.year); // * Year the movie came out.
-		logmsg("\tIMDB Rating:\t\t" + responseObj.imdbRating); // * IMDB Rating of the movie.
-		logmsg("\tRotten Tomatoes Rating:\t" + responseObj.rottenTRating); // * Rotten Tomatoes Rating of the movie.
-		logmsg("\tCountries Produced in:\t" + responseObj.country); // * Country where the movie was produced.
-		logmsg("\tLanguage:\t\t" + responseObj.language); // * Language of the movie.
-		logmsg("\tPlot synopsis:\t\t" + responseObj.synopsis); // * Plot of the movie.
-		logmsg("\tCast:\t\t\t" + responseObj.cast); // * Actors in the movie.
+		logmsg("\tMovie Title:\t\t" + responseObj.title);					// * Title of the movie.
+		logmsg("\tYear Released:\t\t" + responseObj.year);					// * Year the movie came out.
+		logmsg("\tIMDB Rating:\t\t" + responseObj.imdbRating);				// * IMDB Rating of the movie.
+		logmsg("\tRotten Tomatoes Rating:\t" + responseObj.rottenTRating);	// * Rotten Tomatoes Rating of the movie.
+		logmsg("\tCountries Produced in:\t" + responseObj.country);			// * Country where the movie was produced.
+		logmsg("\tLanguage:\t\t" + responseObj.language);					// * Language of the movie.
+		logmsg("\tPlot synopsis:\t\t" + responseObj.synopsis);				// * Plot of the movie.
+		logmsg("\tCast:\t\t\t" + responseObj.cast);							// * Actors in the movie.
 	})
 	.catch(function (error) {
 		logmsg(error);

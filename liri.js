@@ -55,11 +55,14 @@ logmsg("reading command line arguments.");
 		multiWordParam += strArr[i];
 	};
 	
-	switch(strArr[2]) {
+	let command = "";
+	if (strArr[2]) command = strArr[2];
+	
+	switch(command.trim().toLowerCase()) {
 		case "concert-this"		: logmsg("Attempting CONCERT-THIS"); bandsInTown(multiWordParam); break; //Bands-In-Town
 		case "spotify-this-song": logmsg("Attempting SPOTIFY-THIS-SONG"); spotifySong(multiWordParam); break; //Spotify
 		case "movie-this"		: logmsg("Attempting MOVIE-THIS"); imdbCall(multiWordParam); break; // IMDB
-		case "do-what-it-says"	: logmsg("Attempting DO-WHAT-IT-SAYS"); break; //Random input
+		case "do-what-it-says"	: logmsg("Attempting DO-WHAT-IT-SAYS"); randomInput(); break; //Random input
 		default: logmsg("Because you didn't include any command line arguments, the file random.txt will be read for parameter input."); randomInput(); return;//return 0;
 	}
 }(process.argv));
@@ -71,9 +74,16 @@ function randomInput() {
 		var dataString = data.toString();
 		if (dataString) {
 			var dataArr = dataString.split(",");
-			if (dataArr[1].includes('"')) var param = dataArr[1].split('"')[1];
-			else param = dataArr[1];
-			switch(dataArr[0]) {
+			let command = "";
+			let param = "";
+			if (dataArr.length > 0) { // put the argument concatenation logic here in this branch
+				param = dataArr[1].split('"').join().trim().split(" ").join("+");
+			}
+			//else if (dataArr.length === 0){} // then there is no param, leave it as an empty string, but set command
+			
+			command = dataArr[0].trim().toLowerCase();
+		
+			switch(command) {
 				case "concert-this"		: logmsg("Attempting CONCERT-THIS"); bandsInTown(param); break; //Bands-In-Town
 				case "spotify-this-song": logmsg("Attempting SPOTIFY-THIS-SONG"); spotifySong(param); break; //Spotify
 				case "movie-this"		: logmsg("Attempting MOVIE-THIS"); imdbCall(param); break; // IMDB
@@ -95,10 +105,12 @@ function bandsInTown(str) {
 		var x;
 		var dataObj = response.data;
 		for (x in dataObj) {
-			
+				
+				let region = response.data[x].venue.region.toString().trim();
+				if (region) region += ", ";
 				logmsg("\n\tEvent " + (parseInt(x) + parseInt(1)) + ":");
 				logmsg("\tVenue:\t\t" + dataObj[x].venue.name);
-				logmsg("\tVenue location:\t" + dataObj[x].venue.city + ", " + response.data[x].venue.region + ", " + dataObj[x].venue.country);
+				logmsg("\tVenue location:\t" + dataObj[x].venue.city + ", " + region + dataObj[x].venue.country);
 				let dateVal = moment(dataObj[x].datetime).format().toString().split("-").slice(0,3);
 				logmsg("\tDate:\t\t" + dateVal[1] + "/" + dateVal[2].slice(0,2) + "/" + dateVal[0]);
 		}

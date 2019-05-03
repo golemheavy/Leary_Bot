@@ -1,11 +1,10 @@
-# Leary_Bot
-This is an assignment for class
-
-# LIRI Bot
+# LIRI-Bot, or "Tim"
 
 ### Overview
 
-In this assignment, you will make LIRI. LIRI is like iPhone's SIRI. However, while SIRI is a Speech Interpretation and Recognition Interface, LIRI is a _Language_ Interpretation and Recognition Interface. LIRI will be a command line node app that takes in parameters and gives you back data.
+For this class assignment, I built an application conforming to the below specifications. This GitHub project is the result of that effort. LIRI is like iPhone's SIRI. However, while SIRI is a Speech Interpretation and Recognition Interface, LIRI is a _Language_ Interpretation and Recognition Interface. LIRI, aka Tim, is a command line node app that takes in parameters and gives the user useful data back
+
+But since "Liri" unlike Siri isn't a real name, I decided to call this bot Tim, in memory of the late outlaw and psychonautical explorer Timothy Leary.
 
 ### Before You Begin
 

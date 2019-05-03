@@ -37,6 +37,11 @@ var keys = require("./keys.js");
 if (keys) logmsg("loaded keys.js");
 else logmsg("failed to load keys.js");
 
+var moment = require('moment');
+if (keys) logmsg("loaded moment");
+else logmsg("failed to load moment");
+
+
 logmsg("------------executing liri-bot.js----------------");
 
 logmsg("reading command line arguments.");
@@ -80,7 +85,7 @@ function randomInput() {
 }
 
 function bandsInTown(str) {
-	var bandName = "Weird+Al"; // fix acceptable input, according to their API functionality and documentation. ALSO, MENTION WHAT YOU'RE SEARCHING ON
+	var bandName = "Weird+Al"; 
 	if (str) {
 		if (str.includes(" ")) str.split(" ").join("+");
 		bandName = str;
@@ -94,8 +99,9 @@ function bandsInTown(str) {
 				logmsg("\n\tEvent " + (parseInt(x) + parseInt(1)) + ":");
 				logmsg("\tVenue:\t\t" + dataObj[x].venue.name);
 				logmsg("\tVenue location:\t" + dataObj[x].venue.city + ", " + response.data[x].venue.region + ", " + dataObj[x].venue.country);
-				logmsg("\tDatetime:\t" + dataObj[x].datetime);
-			
+				let dateVal = moment(dataObj[x].datetime).format().toString().split("-").slice(0,3);
+				logmsg("\tDate:\t\t" + dateVal[1] + "/" + dateVal[2].slice(0,2) + "/" + dateVal[0]);
+				//logmsg(moment(dataObj[x].datetime, 'MM/DD/YYYY', true).format());
 		}
 		
 	})
@@ -129,7 +135,7 @@ function spotifySong(trackTitle) {
 			logmsg("\tfrom Album:\t" + data.tracks.items[0].album.name); // album name
 		});
 	}
-	else { // fix this branch -- can't get the desired song to return by searching on the title alone
+	else {
 		
 		logmsg("\tno track title provided. Default mode: 'The Sign' by Ace of Base");
  
@@ -138,7 +144,6 @@ function spotifySong(trackTitle) {
 			secret: process.env.SPOTIFY_SECRET
 		});
 		spotify.request('https://api.spotify.com/v1/tracks/0hrBpAOgrt8RXigk83LLNE').then(function(data) {
-			//console.log(data);
 			logmsg("\tArtist:\t\t" + data.artists[0].name); // artist name
 			logmsg("\tTrack Title:\t" + data.name); // track name
 			logmsg("\tSong Preview:\t" + data.preview_url); // preview

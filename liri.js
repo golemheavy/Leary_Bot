@@ -1,4 +1,5 @@
 function logmsg (msgTextStr) {
+	
 	const fs = require('fs');
 	try {
 		fs.appendFileSync('log.txt', "\n\t" + msgTextStr, (err) => {
@@ -164,14 +165,33 @@ function imdbCall(str) {
 	}
 	logmsg ("Getting IMDB data for movie: " + movie.split("+").join(" "));
 	axios.get("https://www.omdbapi.com/?t=" + movie + "&apikey=trilogy").then(function (response) {
-		logmsg("\tMovie Title:\t\t" + response.data.Title); // * Title of the movie.
-		logmsg("\tYear Released:\t\t" + response.data.Year); // * Year the movie came out.
-		logmsg("\tIMDB Rating:\t\t" + response.data.imdbRating); // * IMDB Rating of the movie.
-		logmsg("\tRotten Tomatoes Rating:\t" + response.data.Ratings[1].Value); // * Rotten Tomatoes Rating of the movie.
-		logmsg("\tCountries Produced in:\t" + response.data.Country); // * Country where the movie was produced.
-		logmsg("\tLanguage:\t\t" + response.data.Language); // * Language of the movie.
-		logmsg("\tPlot synopsis:\t\t" + response.data.Plot); // * Plot of the movie.
-		logmsg("\tActors:\t\t" + response.data.Actors); // * Actors in the movie.
+		let responseObj = response;
+		
+		responseObj.title = response.data.Title;
+		responseObj.year = response.data.Year;
+		responseObj.imdbRating = response.data.imdbRating;
+		try {
+			throw responseObj.rottenTRating = response.data.Ratings[1].Value;
+		}
+		catch (res)
+		{
+			//console.log(err);
+			if (res.toString().startsWith("TypeError")) responseObj.rottenTRating = "no record";
+			else responseObj.rottenTRating = res;
+		}
+		responseObj.country = response.data.Country;
+		responseObj.language = response.data.Language;
+		responseObj.synopsis = response.data.Plot;
+		responseObj.cast = response.data.Actors;
+		
+		logmsg("\tMovie Title:\t\t" + responseObj.title); // * Title of the movie.
+		logmsg("\tYear Released:\t\t" + responseObj.year); // * Year the movie came out.
+		logmsg("\tIMDB Rating:\t\t" + responseObj.imdbRating); // * IMDB Rating of the movie.
+		logmsg("\tRotten Tomatoes Rating:\t" + responseObj.rottenTRating); // * Rotten Tomatoes Rating of the movie.
+		logmsg("\tCountries Produced in:\t" + responseObj.country); // * Country where the movie was produced.
+		logmsg("\tLanguage:\t\t" + responseObj.language); // * Language of the movie.
+		logmsg("\tPlot synopsis:\t\t" + responseObj.synopsis); // * Plot of the movie.
+		logmsg("\tCast:\t\t\t" + responseObj.cast); // * Actors in the movie.
 	})
 	.catch(function (error) {
 		logmsg(error);

@@ -1,0 +1,1 @@
+list of badly-formed input strings for use against LIRI BOT (same list tried against all command functions). this is to test the performance of the bot when provided with wacky input.

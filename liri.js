@@ -68,20 +68,32 @@ logmsg("reading command line arguments.");
 }(process.argv));
 
 function randomInput() {
-	logmsg("Executing file(random.txt) input");
+	logmsg("Executing file (random.txt) input");
 	const fs = require('fs');
 	fs.readFile('random.txt', function(err, data) {
+		if (err) {
+			return logmsg('Error occurred: ' + err);
+		}
 		var dataString = data.toString();
+		/*
+		try
+		{
+			throw dataString = data.toString();
+		}
+		catch (res)
+		{
+			if (res.toString().startsWith("TypeError")) console.log("an error occured: missing data.");
+		}
+		*/
 		if (dataString) {
 			var dataArr = dataString.split(",");
 			let command = "";
 			let param = "";
-			if (dataArr.length > 0) { // put the argument concatenation logic here in this branch
+			if (dataArr.length > 1) { // put the argument concatenation logic here in this branch
 				param = dataArr[1].split('"').join().trim().split(" ").join("+");
 			}
-			//else if (dataArr.length === 0){} // then there is no param, leave it as an empty string, but set command
-			
-			command = dataArr[0].trim().toLowerCase();
+			//else if (dataArr.length === 1 or maybe 0){} // then there is no param, leave it as an empty string, but set command
+			else if (dataArr.length === 1) command = dataArr[0].trim().toLowerCase();
 		
 			switch(command) {
 				case "concert-this"		: logmsg("Attempting CONCERT-THIS"); bandsInTown(param); break; //Bands-In-Town

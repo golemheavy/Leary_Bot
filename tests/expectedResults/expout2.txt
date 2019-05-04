@@ -1,0 +1,18 @@
+----------Loading Data and Packages--------------
+Spotify loaded.
+Axios loaded.
+loaded dotenv successfully
+loaded keys.js
+loaded moment
+------------executing liri-bot.js----------------
+reading command line arguments.
+Attempting MOVIE-THIS
+Getting IMDB data for movie: The Goonies
+	Movie Title:		The Goonies
+	Year Released:		1985
+	IMDB Rating:		7.8
+	Rotten Tomatoes Rating:	70%
+	Countries Produced in:	USA
+	Language:		English, Spanish, Cantonese, Italian
+	Plot synopsis:		In order to save their home from foreclosure, a group of misfits set out to find a pirate's ancient valuable treasure.
+	Cast:			Sean Astin, Josh Brolin, Jeff Cohen, Corey Feldman

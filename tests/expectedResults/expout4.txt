@@ -1,0 +1,18 @@
+----------Loading Data and Packages--------------
+Spotify loaded.
+Axios loaded.
+loaded dotenv successfully
+loaded keys.js
+loaded moment
+------------executing liri-bot.js----------------
+reading command line arguments.
+Attempting MOVIE-THIS
+Getting IMDB data for movie: Short Circuit
+	Movie Title:		Short Circuit
+	Year Released:		1986
+	IMDB Rating:		6.6
+	Rotten Tomatoes Rating:	58%
+	Countries Produced in:	USA
+	Language:		English
+	Plot synopsis:		Number 5 of a group of experimental robots in a lab is electrocuted, suddenly becomes intelligent, and escapes.
+	Cast:			Ally Sheedy, Steve Guttenberg, Fisher Stevens, Austin Pendleton

@@ -72,7 +72,11 @@ function randomInput() {
 	const fs = require('fs');
 	fs.readFile('random.txt', function(err, data) {
 		if (err) {
-			return logmsg('Error occurred: ' + err);
+			if (err.toString().startsWith("Error: ENOENT: no such file")) {
+				logmsg("Can't open file: random.txt");
+				return logmsg("Aborting.");
+			}
+			else return logmsg('Error occurred: ' + err);
 		}
 		var dataString = data.toString();
 		/*

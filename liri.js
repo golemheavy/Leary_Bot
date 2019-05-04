@@ -194,6 +194,7 @@ function imdbCall(str) {
 		let responseObj = response;
 		
 		responseObj.title = response.data.Title;
+		if (typeof responseObj.title === "undefined") return logmsg("Record not found.");
 		responseObj.year = response.data.Year;
 		responseObj.imdbRating = response.data.imdbRating;
 		try {
@@ -219,6 +220,6 @@ function imdbCall(str) {
 		logmsg("\tCast:\t\t\t" + responseObj.cast);							// * Actors in the movie.
 	})
 	.catch(function (error) {
-		logmsg(error);
+		return logmsg(error);
 	});
 }

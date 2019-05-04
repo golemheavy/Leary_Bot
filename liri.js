@@ -63,14 +63,14 @@ logmsg("reading command line arguments.");
 		case "spotify-this-song": logmsg("Attempting SPOTIFY-THIS-SONG"); spotifySong(multiWordParam); break; //Spotify
 		case "movie-this"		: logmsg("Attempting MOVIE-THIS"); imdbCall(multiWordParam); break; // IMDB
 		case "do-what-it-says"	: logmsg("Attempting DO-WHAT-IT-SAYS"); randomInput(); break; //Random input
-		default: logmsg("Because you didn't include any command line arguments, the file random.txt will be read for parameter input."); randomInput(); return;//return 0;
+		default: logmsg("Because you didn't include any of the allowed commands in your arguments, the file random.txt will be read for parameter input."); randomInput(); return;//return 0;
 	}
 }(process.argv));
 
 function randomInput() {
 	logmsg("Executing file (random.txt) input");
 	const fs = require('fs');
-	fs.readFile('random.txt', function(err, data) {
+	fs.readFile('./random.txt', function(err, data) {
 		if (err) {
 			if (err.toString().startsWith("Error: ENOENT: no such file")) {
 				logmsg("Can't open file: random.txt");

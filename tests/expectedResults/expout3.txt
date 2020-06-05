@@ -1,0 +1,18 @@
+----------Loading Data and Packages--------------
+Spotify loaded.
+Axios loaded.
+loaded dotenv successfully
+loaded keys.js
+loaded moment
+------------executing liri-bot.js----------------
+reading command line arguments.
+Attempting MOVIE-THIS
+Getting IMDB data for movie: ET
+	Movie Title:		BoOzy' OS et la Gemme de Cristal
+	Year Released:		2013
+	IMDB Rating:		8.6
+	Rotten Tomatoes Rating:	no record
+	Countries Produced in:	France
+	Language:		French
+	Plot synopsis:		A world-famous festival, a sparkling treasure, a charming and sturdy hero and an enticing chick. BoOzy' OS is seeking the Great Cristal of Annecy.
+	Cast:			Ken Arsyn, Georges Colazzo

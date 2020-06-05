@@ -1,0 +1,11 @@
+----------Loading Data and Packages--------------
+Spotify loaded.
+Axios loaded.
+loaded dotenv successfully
+loaded keys.js
+loaded moment
+------------executing liri-bot.js----------------
+reading command line arguments.
+Attempting MOVIE-THIS
+Getting IMDB data for movie: %34534
+Record not found.

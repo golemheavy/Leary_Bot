@@ -149,7 +149,9 @@ function spotifySong(trackTitle) {
 			limit: 1
 		}, function(err, data) {
 			if (err) {
-				return logmsg('Error occurred: ' + err);
+				if (err.toString().startsWith("TypeError: Cannot read property 'artists' of undefined")) return logmsg("Can't retrieve records for that track name. Aborting.");
+				else if (err.toString().startsWith("RequestError: Error: connect ETIMEDOUT")) return logmsg("Request timed out. Please try again.");
+				else return logmsg('Error occurred: ' + err);
 			}
 			logmsg("\tArtist:\t\t" + data.tracks.items[0].artists[0].name); // artist name
 			logmsg("\tTrack Title:\t" + data.tracks.items[0].name); // track name

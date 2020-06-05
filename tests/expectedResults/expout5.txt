@@ -1,0 +1,18 @@
+----------Loading Data and Packages--------------
+Spotify loaded.
+Axios loaded.
+loaded dotenv successfully
+loaded keys.js
+loaded moment
+------------executing liri-bot.js----------------
+reading command line arguments.
+Attempting MOVIE-THIS
+Getting IMDB data for movie: The Passion Of The Christ
+	Movie Title:		The Passion of the Christ
+	Year Released:		2004
+	IMDB Rating:		7.2
+	Rotten Tomatoes Rating:	49%
+	Countries Produced in:	USA
+	Language:		Aramaic, Latin, Hebrew
+	Plot synopsis:		Depicts the final twelve hours in the life of Jesus of Nazareth, on the day of his crucifixion in Jerusalem.
+	Cast:			Jim Caviezel, Maia Morgenstern, Christo Jivkov, Francesco De Vito
